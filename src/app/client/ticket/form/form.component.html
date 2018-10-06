@@ -1,0 +1,32 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInRight">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-12">
+    <form [formGroup]="formTicket" action="" (ngSubmit)="onSubmit(formTicket)">
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Motivo</label>
+          <select name="motivo_id" id="motivo_id" formControlName="motivo_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.motivo_id.errors }">
+            <option [ngValue]="item.id" *ngFor="let item of motivos">{{ item.name }}</option>
+          </select>
+          <div *ngIf="f.motivo_id.errors" class="invalid-feedback">
+              <div *ngIf="f.motivo_id.errors.required">El motivo es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Descripción</label>
+          <textarea name="description" id="description" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" style="height: 100px;"></textarea>
+          <div *ngIf="f.description.errors" class="invalid-feedback">
+              <div *ngIf="f.description.errors.required">La descripción es requerida</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-4 col-sm-4 col-12 offset-md-2 offset-sm-2">
+          <button class="btn btn-outline-success btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
+        </div>
+        <div class="col-md-4 col-sm-4 col-12">
+          <a routerLink="/client/tickets"  class="btn btn-outline-primary btn-block">Cancelar&nbsp;<i class="fa fa-remove"></i></a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

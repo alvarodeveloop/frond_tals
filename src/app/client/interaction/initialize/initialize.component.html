@@ -1,0 +1,25 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInUp">
+  <div class="pre-loader" *ngIf="loading">Enviando y Esperando Respuesta</div>
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <div id="div_camera" class="text-center">
+        
+      </div>
+      <div>
+        <button class="btn btn-success btn-block" [disabled]="btn_disabled" (click)="start()">Empezar&nbsp;<i class="fa fa-play"></i></button>
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-9">
+      <div class="row no-gutters">
+        <div class="col-md-6 col-sm-6 text-center">
+          <h4 class="text-center">Animación</h4>
+          <div id="tag_animacion"></div>
+        </div>
+        <div class="col-md-6 col-sm-6 text-center">
+          <h4 class="text-center">Audio</h4>
+          <div id="tag_audio"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

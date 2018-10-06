@@ -1,0 +1,55 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInRight">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-12">
+    <form [formGroup]="formAnimation" action="" (ngSubmit)="onSubmit(formAnimation)">
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Sonido</label>
+          <button type="button" class="btn btn-info btn-block" (click)="open_file('audio')">Mp3&nbsp;<i class="fa fa-play"></i></button>
+          <input type="file" name="audio" id="audio" accept=".mp3" style="display: none">
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Animación</label>
+          <button type="button" class="btn btn-info btn-block" (click)="open_file('animacion')">Animación&nbsp;<i class="fa fa-camera"></i></button>
+          <input type="file" name="animacion" id="animacion" style="display: none">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Texto</label>
+          <input type="text" id="texto" name="texto" formControlName="texto" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.texto.errors }">
+          <div *ngIf="f.texto.errors" class="invalid-feedback">
+            <div *ngIf="f.texto.errors.required">El Texto es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Descripción Animación</label>
+          <input type="text" id="texto" name="name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+          <div *ngIf="f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">El Texto es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group" *ngIf="registerById">
+        <div class="col-md-6 col-sm-6 col-6 offset-md-1 offset-sm-1 offset-1 custom-control custom-checkbox mb-5">
+          <input type="checkbox" class="custom-control-input" formControlName="activo" id="activo" id="changeStatu" [checked]="registerById.activo" (click)="changeStatus($event)">
+          <label for="changeStatu" class="custom-control-label">Estado</label>
+          <br>
+          <label for="changeStatu" class="custom-control-label">{{ nameStatus }}</label>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-12 offset-md-2 offset-sm-2">
+              <button class="btn btn-outline-success btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-12">
+              <a routerLink="/admin/animations"  class="btn btn-outline-danger btn-block">Cancelar&nbsp;<i class="fa fa-remove"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

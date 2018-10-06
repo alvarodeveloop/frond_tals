@@ -1,0 +1,85 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInUp">
+  <div class="row">
+    <div class="col-md-4 col-sm-4">
+      <h3 class="text-center">Detalles del Ticket</h3>
+      <br>
+      <ul class="list-group-flush">
+        <li class="list-group-item-text"><b>Número:</b>&nbsp;&nbsp;<span class="alert alert-warning">{{ validate ? ticketManage.numero_ticket : '' }}</span></li>
+        <br/>
+        <li class="list-group-item-text"><b>Motivo:</b> {{ validate ? ticketManage.motivo.name : '' }}</li>
+        <br/>
+        <li class="list-group-item-text"><b>Descripción:</b> {{ validate ? ticketManage.description : '' }}</li>
+        <br/>
+        <li class="list-group-item-text"><b>Usuario:</b> {{ validate ? ticketManage.userTicket.nombre : '' }}</li>
+        <br>
+        <li class="list-group-item-text"><b>Fecha de Inicio:</b> {{ validate ? (ticketManage.createdAt | date: 'dd-MM-yyyy HH:MM:SS' ): '' }}</li>
+        <br>
+        <li class="list-group-item-text"><b>Estatus:</b> {{ validate ? ticketManage.motivoEstatus.name : ''}}</li>
+        <br/>
+        <li class="list-group-item-text"><b>Cambiar Estatus:</b>&nbsp;&nbsp;
+          <select name="" id="" class="form-control" (change)="changeStatus($event)">
+            <option value=""></option>
+            <option [value]="item.id" [selected]="item.id == ticketManage.statu_id" *ngFor="let item of arrayStatus">{{ item.name }}</option>
+          </select>
+      </ul>
+      <br/>
+      <button class="btn btn-block btn-outline-primary" type="button" data-toggle="modal" data-target="#modal_cuenta"  *ngIf="statusTicket !== 5 && statusTicket !== 6">
+        Agregar Mensaje&nbsp;<i class="fa fa-plus"></i>
+      </button>
+      <br/>
+      <p class="text-center"><a routerLink="/client/tickets">Regresar&nbsp;<i class="fa fa-arrow-left"></i></a></p>
+    </div>
+    <div class="col-md-8 col-sm-8">
+      <h3 class="text-center">Mensajes</h3>
+      <br/>
+      <div class="row" *ngIf="visible">
+        <div class="col-md-4 col-sm-4">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-8 text-center">
+          <div class="tab-content" id="v-pills-tabContent">
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!visible">
+        <div class="col-md-12 col-sm-12 text-center" id="div_not_visible">
+          <p class="text-center">No hay mensajes en este ticket</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal_cuenta" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header login-header">
+              <h4 class="modal-title">Escriba su mensaje&nbsp;<i class="fa fa-pencil"></i></h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <form [formGroup]="formAnsswer" action="" (ngSubmit)="onSubmit(formAnsswer)" id="form_register">
+            <div class="modal-body">
+              <div class="row form-group">
+                <div class="col-md-12 col-sm-12">
+                  <textarea name="description" id="description" rows="2" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" class="form-control"></textarea>
+                  <div *ngIf="f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required">Debe introducir una respuesta</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-5 col-sm-5">
+                  <input type="file" name="file_answer" id="file_answer" accept="" multiple="">
+                </div>
+              </div>
+            </div><!-- fin modal-body -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Grabar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+          </form>
+      </div><!-- fin modal-content -->
+  </div><!-- fin modal-dialog -->
+</div> <!-- fin modal -->

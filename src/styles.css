@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+.background_admin{
+  background-image: url('http://localhost:4200/assets/images/login_back1.jpg'); 
+  background-attachment: fixed; 
+  background-size: cover;
+}
+
+.background_enterprise{
+  background-image: url('http://localhost:4200/assets/images/background2.jpg'); 
+  background-attachment: fixed; 
+  background-size: cover;
+}

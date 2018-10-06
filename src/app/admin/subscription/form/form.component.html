@@ -1,0 +1,67 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInRight">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-12">
+    <h3 class="text-center">Registro de Subscripciones&nbsp;<i class="fa fa-calendar"></i></h3>
+    <br/>
+    <form [formGroup]="formSub" action="" (ngSubmit)="onSubmit(formSub)">
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Título</label>
+          <input type="text" class="form-control" formControlName="titulo" [ngClass]="{ 'is-invalid': submitted && f.titulo.errors }">
+          <div *ngIf="f.titulo.errors" class="invalid-feedback">
+              <div *ngIf="f.titulo.errors.required">El Título es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Descripción</label>
+          <textarea name="descripcion" id="descripcion" formControlName="descripcion" style="height: 100px" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"></textarea>
+          <div *ngIf="f.descripcion.errors" class="invalid-feedback">
+              <div *ngIf="f.descripcion.errors.required">La descripción es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Período</label>
+          <select name="periodo" id="periodo" class="form-control" formControlName="periodo" [ngClass]="{ 'is-invalid': submitted && f.periodo.errors }">
+            <option value="1">Mensual</option>
+            <option value="3">Trimestral</option>
+            <option value="6">6 Meses</option>
+            <option value="12">Anual</option>
+          </select>
+          <div *ngIf="f.periodo.errors" class="invalid-feedback">
+            <div *ngIf="f.periodo.errors.required">El tipo es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-12">
+          <label for="" class="form-control-label">Precio</label>
+          <input type="number" step="any" min="1" class="form-control" formControlName="precio" [ngClass]="{ 'is-invalid': submitted && f.precio.errors }">
+          <div *ngIf="f.precio.errors" class="invalid-feedback">
+              <div *ngIf="f.precio.errors.required">El precio es requerido</div>
+              <div *ngIf="f.precio.errors.pattern">El campo solo debe contener los siguientes caracteres (0-9 , .)</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group" *ngIf="registerById">
+        <div class="col-md-6 col-sm-6 col-6  custom-control custom-checkbox mb-5 pl-5">
+          <input type="checkbox" class="custom-control-input" formControlName="activo" id="activo" id="changeStatu" [checked]="registerById.activo" (click)="changeStatus($event)">
+          <label for="changeStatu" class="custom-control-label">Estado</label>
+          <br>
+          <label for="changeStatu" class="custom-control-label">{{ nameStatus }}</label>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-12 offset-md-2 offset-sm-2">
+              <button class="btn btn-outline-success btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-12">
+              <a routerLink="/admin/subscription"  class="btn btn-outline-primary btn-block">Cancelar&nbsp;<i class="fa fa-remove"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Basic Page Info -->
+  <meta charset="utf-8">
+  <title>DeskApp Dashboard</title>
+
+  <!-- Site favicon -->
+  <!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-119386393-1');
+  </script>
+</head>
+<body style="background-image: url('../../assets/images/login_back1.jpg'); background-attachment: fixed; background-size: cover;">
+  
+  <div class="login-wrap customscroll d-flex align-items-center flex-wrap justify-content-center pd-20">
+    <div class="login-box bg-white box-shadow pd-30 border-radius-5">
+      <img src="../../assets/images/login-img.png" alt="login" class="login-img">
+      <div id="div_login" *ngIf="!type_div">
+        <h2 class="text-center mb-30">Login</h2>
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit(formLogin)">
+          <div class="input-group custom input-group-lg">
+            <input type="text" class="form-control" formControlName="email" placeholder="Usuario" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div class="input-group-append custom">
+              <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+            </div>
+            <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">El Usuario es requerido</div>
+            </div>
+          </div>
+          <div class="input-group custom input-group-lg">
+            <input type="password" class="form-control" placeholder="**********" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password">
+            <div class="input-group-append custom">
+              <span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
+            </div>
+            <div *ngIf="f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">La contraseña es requerida</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="input-group">
+                <!--
+                  use code for form submit
+                  <input class="btn btn-outline-primary btn-lg btn-block" type="submit" value="Sign In">
+                -->
+                <!-- 
+                <a class="btn btn-outline-primary btn-lg btn-block" href="index.php"></a>
+                 -->
+              </div>
+            </div>
+            <div class="col-sm-12 text-center">
+              <div class="forgot-password padding-top-10">
+                <button type="button" class="btn btn-link" (click)="show_div_password()">Olvido su Contraseña</button>
+              </div>
+            </div>
+            <div class="col-sm-12 padding-top-10">
+              <button class="btn btn-block" style="background-color: #9F1D9D; color: white;">{{ btnLogin }}&nbsp;<i class="fa fa-send"></i></button>
+            </div>
+            <div class="col-sm-12 padding-top-10">
+              <a routerLink="/user_register" class="btn btn-block" style="background-color: #9F1D9D; color: white;">Registrarse como Usuario&nbsp;<i class="fa fa-user-plus"></i></a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="div_password" *ngIf="type_div">
+        <h2 class="text-center mb-30">Recuperar Contraseña</h2>
+        <form [formGroup]="formRecovery" (ngSubmit)="onSubmitRecovery(formRecovery)">
+          <div class="input-group custom input-group-lg">
+            <input type="text" class="form-control" placeholder="Escriba su correo electronico" [ngClass]="{ 'is-invalid': submitted && r.email.errors }" formControlName="email">
+            <div class="input-group-append custom">
+              <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+            </div>
+            <div *ngIf="r.email.errors" class="invalid-feedback">
+                <div *ngIf="r.email.errors.required">El email es requerido</div>
+                <div *ngIf="r.email.errors.email">Debe introducir un email valido</div>
+            </div>
+          </div>
+          <div class="col-sm-12 padding-top-10">
+            <button class="btn btn-block" style="background-color: #9F1D9D; color: white;" [disabled]="submitted1">{{ stringRecovery }}&nbsp;<i class="fa fa-send"></i></button>
+          </div>
+        </form>
+        <div class="col-sm-12 text-center">
+          <div class="forgot-password padding-top-10">
+            <button type="button" class="btn btn-link" (click)="show_div_password()">Iniciar Sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

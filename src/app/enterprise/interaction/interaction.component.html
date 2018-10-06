@@ -1,0 +1,39 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInUp">
+  <div class="pre-loader" *ngIf="loading">Cargando Respuesta</div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h2 class="text-center">Interacción Tals</h2>
+      <p class="text-center">{{ estadoConexionCliente }}</p>
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <div class="col-md-10 col-sm-10 offset-sm-1 offset-md-1">
+            <textarea name="entradaTexto" id="entradaTexto" rows="4" class="form-control"></textarea>
+            <br/>
+            <button class="btn btn-primary btn-block" (click)="sendMessage()">Enviar&nbsp;<i class="fa fa-send"></i></button>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="row no-gutters">
+            <div class="col-md-6 col-sm-6 text-center">
+              <h4 class="text-center">Animación</h4>
+              <div id="tag_animacion"></div>
+            </div>
+            <div class="col-md-6 col-sm-6 text-center">
+              <h4 class="text-center">Audio</h4>
+              <div id="tag_audio"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <br>
+      <div class="text-center">
+        <b>Instrucciones: </b> 
+        <ul class="list-group text-center">
+          <li class="list-group-item">Debe escribir un texto o usar el microfono para comunicarse con el usuario en linea</li>
+          <li class="list-group-item">Del lado derecho de la pantalla saldra la respuesta del cliente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

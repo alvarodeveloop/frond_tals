@@ -1,0 +1,112 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInRight">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-12">
+    <h3 class="text-center">Datos de la Cuenta&nbsp;<i class="fa fa-user"></i></h3>
+    <br>
+    <form [formGroup]="formProfile" action="" (ngSubmit)="onSubmit(formProfile)">
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+          <div *ngIf="f.nombre.errors" class="invalid-feedback">
+              <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Rut</label>
+          <input type="text" class="form-control" formControlName="rut" id="rut" [ngClass]="{ 'is-invalid': submitted && f.rut.errors }" (keyup)="onlyNubers($event)">
+          <div *ngIf="f.rut.errors" class="invalid-feedback">
+              <div *ngIf="f.rut.errors.required">El nombre es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Dirección</label>
+          <input type="text" class="form-control" formControlName="direccion" [ngClass]="{ 'is-invalid': submitted && f.direccion.errors }">
+          <div *ngIf="f.direccion.errors" class="invalid-feedback">
+              <div *ngIf="f.direccion.errors.required">La Dirección es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Teléfono</label>
+          <input type="text" class="form-control" formControlName="telefono" id="telefono" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" (keyup)="onlyNubers($event)">
+          <div *ngIf="f.telefono.errors" class="invalid-feedback">
+              <div *ngIf="f.telefono.errors.required">El Teléfono es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Correo</label>
+          <input type="email" class="form-control" formControlName="correo" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }">
+          <div *ngIf="f.correo.errors" class="invalid-feedback">
+              <div *ngIf="f.correo.errors.required">El Correo es requerido</div>
+          </div>
+          <div *ngIf="f.correo.errors" class="invalid-feedback">
+              <div *ngIf="f.correo.errors.email">El campo debe contener un correo valido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Ceo</label>
+          <input type="text" class="form-control" formControlName="ceo" id="ceo" [ngClass]="{ 'is-invalid': submitted && f.ceo.errors }">
+          <div *ngIf="f.ceo.errors" class="invalid-feedback">
+              <div *ngIf="f.ceo.errors.required">El Teléfono es requerido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Telefono Ceo</label>
+          <input type="text" class="form-control" formControlName="telefono_ceo" [ngClass]="{ 'is-invalid': submitted && f.telefono_ceo.errors }" (keyup)="onlyNubers($event)">
+          <div *ngIf="f.telefono_ceo.errors" class="invalid-feedback">
+              <div *ngIf="f.telefono_ceo.errors.required">El Teléfono es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Correo Ceo</label>
+          <input type="email" class="form-control" formControlName="correo_ceo" [ngClass]="{ 'is-invalid': submitted && f.correo_ceo.errors }">
+          <div *ngIf="f.correo_ceo.errors" class="invalid-feedback">
+              <div *ngIf="f.correo_ceo.errors.required">El correo es requerido</div>
+          </div>
+          <div *ngIf="f.correo_ceo.errors" class="invalid-feedback">
+              <div *ngIf="f.correo_ceo.errors.email">El campo debe contener un correo valido</div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Rut Ceo</label>
+          <input type="text" class="form-control" formControlName="rut_ceo" [ngClass]="{ 'is-invalid': submitted && f.rut_ceo.errors }" (keyup)="onlyNubers($event)">
+          <div *ngIf="f.rut_ceo.errors" class="invalid-feedback">
+              <div *ngIf="f.rut_ceo.errors.required">El Rut es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-6 col-sm-6 col-6 custom-control custom-checkbox mb-5">
+          <input type="checkbox" class="custom-control-input" formControlName="changePassword" id="changePassword" (click)="changePass($event)">
+          <label for="changePassword" class="custom-control-label">Cambiar Contraseña</label>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6">
+          <label for="" class="form-control-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+          <div *ngIf="f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">El Password es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-12 col-sm-12 col-12">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-12 offset-md-2 offset-sm-2">
+              <button class="btn btn-outline-success btn-block">Enviar&nbsp;<i class="fa fa-send"></i></button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-12">
+              <a routerLink="/enterprise"  class="btn btn-outline-primary btn-block">Cancelar&nbsp;<i class="fa fa-remove"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

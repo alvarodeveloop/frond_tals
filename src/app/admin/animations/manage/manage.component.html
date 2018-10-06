@@ -1,0 +1,86 @@
+<div class="pd-20 bg-white border-radius-4 box-shadow mb-30 animated slideInUp">
+  <div class="pre-loader" *ngIf="loading"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <h3 class="text-center">Administración de animaciones</h3>
+    </div>
+    <div class="clearfix"></div>
+    <br/><br/>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <h4>Respuestas de Salida</h4>
+      </div>
+      <div class="clearfix"></div>
+      <br/><br/>
+      <div class="col-md-4 col-sm-4 text-center">
+        <h5 class="">Audio:</h5>
+        <br>
+        <button type="button" class="btn btn-link" (click)="add_img('edit_audio')">Editar&nbsp;<i></i></button>
+        <input type="file" id="edit_audio" name="edit_audio" (change)="editFileUpload($event,'AnimationsAudio/','audio')" style="display: none" accept=".mp3, .mp4">
+        <div id="tag_audio">
+          <audio controls id="audio" *ngIf="register">
+            <source [src]="ruta_audio" type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>    
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 text-center">
+        <h5 class="">Texto:</h5>
+        <button type="button" data-toggle="modal" data-target="#modal_texto" class="btn btn-link">Editar&nbsp;<i></i></button>
+        <p class="text-center">{{ register ? register.texto : "" }}</p>
+      </div>
+      <div class="col-md-4 col-sm-4 text-center" *ngIf="register">
+        <h5 class="">Animación:</h5>
+        <button type="button" class="btn btn-link" (click)="add_img('edit_animation')">Editar&nbsp;<i></i></button>
+        <input type="file" id="edit_animation" name="edit_animation" (change)="editFileUpload($event,'AnimationsAnimacion/','animacion')" style="display: none" accept=".JPG, .PNG,.JPEG">
+        <br/>
+        <img [src]="ruta_animacion" alt="" width="60%" height="70px">
+      </div>
+    </div>
+    <br style="border: 1px solid lightgray;">
+    
+      <div class="col-md-12 col-sm-12">
+        <h4 class="" style="margin-left: 20px;">Galeria de Imagenes</h4>  
+      </div>
+
+      <div class="col-md-6 col-sm-6 col-lg-6 text-center">
+        <br>
+        <button class="btn btn-info"  (click)="add_img('add_img')">Agregar Imagenes</button>
+        <input type="file" id="add_img" name="images" accept=".PNG, .JPG, .JPEG" style="display: none" (change)="upload_img()" multiple="">
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-6 text-center">
+        <br>
+        <button type="button" class="btn btn-danger"  (click)="remove_all_img()">Eliminar Imagenes&nbsp;<i class="fa fa-remove"></i></button>
+      </div>
+    
+    <div class="clearfix"></div>
+    <br/><br style="border: 1px solid lightgray;">
+    
+    <div class="div_pictures" id="div_pictures">
+            
+    </div>
+  </div>
+</div>
+<div id="modal_texto" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header login-header" style="background-color: #138496;">
+                <h4 class="modal-title" style="color: white">Edición de Salida (Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form action="">
+              <div class="modal-body">
+                <div class="form-group col-md-12 col-sm-12">
+                  <label for="" class="form-control-label">Texto Nuevo</label>
+                  <input type="text" class="form-control" id="texto_nuevo" name="texto_nuevo"  [(ngModel)]="editTextoString" #ctrl="ngModel">
+                </div>
+              </div><!-- fin modal-body -->
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-success" (click)="editTexto()">Editar&nbsp;<i class="fa fa-edit"></i></button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+            </form>
+        </div><!-- fin modal-content -->
+    </div><!-- fin modal-dialog -->
+</div> <!-- fin modal -->
