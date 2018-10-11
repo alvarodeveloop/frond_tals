@@ -32,11 +32,13 @@ export class InitializeComponent implements OnInit, OnDestroy {
   idEnterprise: string = ""
   loading: boolean = false
   classPredilect : number = 0
-  btn_disabled : boolean  = true
+  btn_disabled : boolean  = false
+  btn_disabled1 : boolean  = true
   count: number = 0
   backup : any = ""
   historial : any[] = []
   count_saliendo : number = 0;
+  string_output  : string = ""
 
   constructor(
     private asvc : AnimationsService, 
@@ -62,7 +64,6 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
       if(res.type === "enterpriseClient"){
         setTimeout(() => {
-          this.start()
           this.renderResponseClient(res.data.data)
           this.sendWsMsg({'message': "historial"})
         },2500)        
@@ -105,6 +106,22 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
     this.btn_disabled = false
 
+  }
+
+  erase_character(){
+    this.string_output = this.string_output.substring(0,this.string_output.length -1)
+  }
+
+  clean_string(){
+   this.string_output = "" 
+  }
+
+  send(){
+    if(this.string_output.length > 0){
+      this.sendWsMsg({ message: "clientEnterprise",  data: this.string_output})
+    }else{
+       this.toastr.error('Debe crear una oración mediante la cámara')
+    }
   }
 
 
@@ -163,7 +180,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
                     alert(prediction.classIndex+1) */
 
-                    self.start()
+                     self.start()
                   }
                 }
               }
@@ -206,13 +223,15 @@ export class InitializeComponent implements OnInit, OnDestroy {
     this.videoPlaying = true
     this.animate()
     this.btn_disabled = true
-
+    this.btn_disabled1 = false;
     this.timer = requestAnimationFrame(this.animate.bind(this));
   }
 
   stop(){
     this.video.pause();
     this.videoPlaying = false
+    this.btn_disabled1 = true;
+    this.btn_disabled = false;
     
     cancelAnimationFrame(this.timer);
 
@@ -233,16 +252,13 @@ export class InitializeComponent implements OnInit, OnDestroy {
           const indexClass = res.classIndex
           this.classPredilect = indexClass
           
-          if(this.count === 20 && this.classPredilect === this.backup){
+          if(this.count === 40 && this.classPredilect === this.backup){
 
-            let objSend = this.arreglo_elements[indexClass]
+            this.string_output+= this.arreglo_elements[indexClass].texto
 
-            this.sendWsMsg({ message: "clientEnterprise",  data: objSend})
             this.count = 0
             this.stop()
-            this.loading = true
-            this.btn_disabled = true
-          }else if(this.count === 20){
+          }else if(this.count === 40){
             this.count = 0
           }
           

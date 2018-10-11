@@ -5,12 +5,25 @@
       <div id="div_camera" class="text-center">
         
       </div>
-      <div>
-        <!--  
-          <button class="btn btn-success btn-block" [disabled]="btn_disabled" (click)="start()">Empezar&nbsp;<i class="fa fa-play"></i></button>
-        -->
-        
+      <div class="row no-gutters">
+        <div class="col-md-6 col-sm-6">
+          <button class="btn btn-primary btn-block" [disabled]="btn_disabled" (click)="start()">Empezar&nbsp;<i class="fa fa-play"></i></button>  
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <button class="btn btn-info btn-block" [disabled]="btn_disabled1" (click)="stop()">Detener&nbsp;<i class="fa fa-stop"></i></button>  
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <button type="button" class="btn btn-danger btn-block" (click)="erase_character()">Borrar&nbsp;<i class="fa fa-remove"></i></button>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <button type="button" class="btn btn-danger btn-block" (click)="clean_string()">Limpiar&nbsp;<i class="fa fa-trash"></i></button>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <button type="button" class="btn btn-success btn-block" (click)="send()">Enviar&nbsp;<i class="fa fa-send"></i></button>
+        </div>
       </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12 col-sm-12" *ngIf="string_output.lenght > 0">Texto a Enviar: {{ string_output.lenght }}</div>
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="row no-gutters">

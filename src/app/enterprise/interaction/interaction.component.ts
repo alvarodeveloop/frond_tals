@@ -77,21 +77,22 @@ export class InteractionComponent implements OnInit,OnDestroy {
 
   renderResponseClient(data){
 
-    const ruta_audio = environment.url+"animation/"+data.audio
+    console.log(data,'aquii')
+    /*const ruta_audio = environment.url+"animation/"+data.audio
 
     var html = `<audio controls id="audio" *ngIf="register">
                   <source src="${ruta_audio}" type="audio/mpeg">
                   Your browser does not support the audio tag.
                 </audio>`
     
-    var html_img = `<img src="${environment.url}/animation/${data.imagen}" width="50%" />`
+    var html_img = `<h4>${data.data}</h4>`
 
     $('#tag_audio').empty()
     $('#tag_audio').html(html)
     $('#tag_animacion').html()
     $('#tag_animacion').html(html_img)
 
-    this.loading = false
+    this.loading = false*/
 
   }
      
