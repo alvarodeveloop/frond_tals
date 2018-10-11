@@ -16,8 +16,14 @@
           <div id="tag_animacion"></div>
         </div>
         <div class="col-md-6 col-sm-6 text-center">
-          <h4 class="text-center">Audio</h4>
-          <div id="tag_audio"></div>
+          <h4 class="text-center">Historial de Mensajes</h4>
+          <div class="text-center div_chat">
+            <div [ngClass]="item.tipo == 1 ? 'alert alert-info sordo' : 'alert alert-danger empresa'" *ngFor="let item of historial; let index = index">
+              {{ item.tipo == 1 ? 'Usted:' : 'Empresa:'}}
+              <br/>
+              {{ item.mensaje }}
+            </div>
+          </div>
         </div>
       </div>
     </div>

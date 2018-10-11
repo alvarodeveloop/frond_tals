@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  //url: 'http://127.0.0.1:3789/',
-  ws_url: "https://tals2018.herokuapp.com/",
-  url: 'https://tals2018.herokuapp.com/' //producción
+  url: 'http://127.0.0.1:3789/',
+  ws_url: "http://127.0.0.1:3789/"
+  //ws_url: "https://tals2018.herokuapp.com/",
+  //url: 'https://tals2018.herokuapp.com/' //producción
 
   
 };

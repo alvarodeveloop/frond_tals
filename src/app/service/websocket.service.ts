@@ -30,6 +30,18 @@ export class WebsocketService {
         observer.next({type: "enterpriseClient", data})
       })
 
+      this.socket.on('historial',  data => {
+        observer.next({type: "historial", data: data})
+      })
+
+      this.socket.on('exit',  data => {
+        observer.next({type: "exit"})
+      })
+
+      this.socket.on('saludo', data => {
+        observer.next({type: "saludo"})
+      })
+
       return () => {
         this.socket.disconnect()
       }

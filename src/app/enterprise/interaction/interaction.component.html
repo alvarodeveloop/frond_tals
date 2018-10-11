@@ -23,17 +23,33 @@
               <div id="tag_audio"></div>
             </div>
           </div>
+          <div class="clearfix"></div>
         </div>
       </div>
       <div class="clearfix"></div>
       <br>
-      <div class="text-center">
-        <b>Instrucciones: </b> 
-        <ul class="list-group text-center">
-          <li class="list-group-item">Debe escribir un texto o usar el microfono para comunicarse con el usuario en linea</li>
-          <li class="list-group-item">Del lado derecho de la pantalla saldra la respuesta del cliente</li>
-        </ul>
+      <div class="row no-gutters">
+        <div class="col-md-5 col-sm-5">
+          <div class="text-center">
+            <b>Instrucciones: </b> 
+            <ul class="list-group text-center">
+              <li class="list-group-item">Debe escribir un texto o usar el microfono para comunicarse con el usuario en linea</li>
+              <li class="list-group-item">Del lado derecho de la pantalla saldra la respuesta del cliente y podrar ver el historial de mensajes con el usuario</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 offset-md-1 offset-sm-1">
+          <h4 class="text-center">Historial de Mensajes</h4>
+          <div class="text-center div_chat">
+            <div [ngClass]="item.tipo == 1 ? 'alert alert-info sordo' : 'alert alert-danger empresa'" *ngFor="let item of historial; let index = index">
+              {{ item.tipo == 1 ? 'Cliente:' : 'Usted:'}}
+              <br/>
+              {{ item.mensaje }}
+            </div>
+          </div>
+        </div>
       </div>
+          
     </div>
   </div>
 </div>

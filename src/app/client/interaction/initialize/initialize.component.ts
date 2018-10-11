@@ -16,11 +16,12 @@ declare var dl : any
 })
 export class InitializeComponent implements OnInit, OnDestroy {
 
-  route1 : string = "../../../../assets/images/cat.jpg"
+  /*route1 : string = "../../../../assets/images/cat.jpg"
   route2 : string = "../../../../assets/images/dog1.jpg"
   route3 : string = "../../../../assets/images/dog2.jpg"
   route4 : string = "../../../../assets/images/ejemplo1.jpg"
-  route5 : string = "../../../../assets/images/ejemplo2.jpg"
+  route5 : string = "../../../../assets/images/ejemplo2.jpg"*/
+
   videoPlaying : boolean = false
   video : any
   knn : any
@@ -32,6 +33,10 @@ export class InitializeComponent implements OnInit, OnDestroy {
   loading: boolean = false
   classPredilect : number = 0
   btn_disabled : boolean  = true
+  count: number = 0
+  backup : any = ""
+  historial : any[] = []
+  count_saliendo : number = 0;
 
   constructor(
     private asvc : AnimationsService, 
@@ -41,23 +46,40 @@ export class InitializeComponent implements OnInit, OnDestroy {
     private _router: ActivatedRoute) { 
     this.session = JSON.parse(localStorage.getItem('session'))
     this.idEnterprise = this._router.snapshot.paramMap.get('id')
+    this.count_saliendo = 0;
   }
 
   ngOnInit() {
 
     this.appendVideo()
-    this.init()
+    //this.init()
 
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
     this.sendWsMsg(obj)
+    this.isvc.sendMsg({message: "historial"})
 
     this.isvc.messages.subscribe(res => {
 
       if(res.type === "enterpriseClient"){
         setTimeout(() => {
+          this.start()
           this.renderResponseClient(res.data.data)
+          this.sendWsMsg({'message': "historial"})
         },2500)        
+      }
+
+      if(res.type === "historial"){
+        console.log(res.data,'aqui historial')
+        this.historial = res.data.mensj
+      }
+
+      if(res.type === "exit"){
+        this.count_saliendo++
+        if(this.count_saliendo === 1){
+          this.toastr.warning('La empresa se ha desconectado de la sesión','Información')
+          this.router.navigate(['/client/interaction'])
+        }
       }
     })
 
@@ -143,7 +165,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
                     alert(prediction.classIndex+1) */
 
-                    self.start()
+                    //self.start()
                   }
                 }
               }
@@ -199,8 +221,6 @@ export class InitializeComponent implements OnInit, OnDestroy {
   }
 
   animate(){
-    let count = 0
-    let backup : number = 0
 
     if(this.videoPlaying){
       // Get image data from video element
@@ -211,23 +231,24 @@ export class InitializeComponent implements OnInit, OnDestroy {
       if(Math.max(...exampleCount) > 0){
         this.knn.predictClass(image)
         .then((res)=>{
-          count++
+          this.count++
           const indexClass = res.classIndex
           this.classPredilect = indexClass
           
-          if(count === 20 && this.classPredilect === backup){
+          if(this.count === 20 && this.classPredilect === this.backup){
 
             let objSend = this.arreglo_elements[indexClass]
 
             this.sendWsMsg({ message: "clientEnterprise",  data: objSend})
+            this.count = 0
             this.stop()
             this.loading = true
             this.btn_disabled = true
-          }else if(count === 20){
-            count = 0
+          }else if(this.count === 20){
+            this.count = 0
           }
           
-          backup = indexClass
+          this.backup = indexClass
 
         })
         // Dispose image when done
@@ -241,7 +262,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.stop()
-    this.sendWsMsg({message: "disconnect"})
+    this.sendWsMsg({message: "saliendo"})
   }
 
 }

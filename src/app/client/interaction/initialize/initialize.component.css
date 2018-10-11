@@ -1,0 +1,19 @@
+.div_chat{
+  border: 1px solid lightgray;
+  height: 400px;
+  max-height: 400px; 
+  overflow-y: scroll;
+}
+
+.sordo{
+  width: 50%;
+  color: white;
+  text-align: center;
+}
+
+.empresa{
+  margin-left: 50%;
+  color: white;
+  width: 50%;
+  text-align: center; 
+}

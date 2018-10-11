@@ -20,6 +20,9 @@ export class InteractionComponent implements OnInit,OnDestroy {
   estadoConexionCliente : string = ""
   session : any
   loading: boolean = false
+  historial: any[] = []
+  count_saliendo : number = 0;
+  count_saludo   : number = 0;
 
 
   constructor(private asvc : AnimationsService, private toastr: ToastrService, private _ele: ElementRef, private isvc: InteractionService) { 
@@ -35,15 +38,36 @@ export class InteractionComponent implements OnInit,OnDestroy {
 
     this.isvc.messages.subscribe(res => {
       if(res.type === "clientEnterprise"){
-        console.log(res)
         this.loading = true
         setTimeout(() => {
           this.renderResponseClient(res.data)
         },2000)
       }  
+
+      if(res.type === "historial"){
+        console.log(res,'aquii')
+        this.historial = res.data
+      }
+
+      if(res.type === "saludo"){
+        this.count_saliendo = 0;
+        if(this.count_saludo === 0){
+          this.count_saludo++
+          this.toastr.success('Ya esta en sesión con un usuario cliente','Aviso!')
+        }
+      }
+
+      if(res.type === "exit"){
+        this.count_saliendo++
+        if(this.count_saliendo === 1){
+          this.count_saludo = 0
+          this.toastr.warning('El cliente se ha desconectado de la sesión','Información')
+        }
+      }
     })
 
     this.isvc.sendMsg({type:1, profile: this.session.profile, correo: this.session.correo, message: 'typeconnection'})
+    this.isvc.sendMsg({message: "historial"})
 
   }
 
@@ -92,7 +116,7 @@ export class InteractionComponent implements OnInit,OnDestroy {
   }
   
   ngOnDestroy(){
-    this.isvc.sendMsg({message: "disconnect"})
+    this.isvc.sendMsg({message: "saliendo"})
   }
 
 }
