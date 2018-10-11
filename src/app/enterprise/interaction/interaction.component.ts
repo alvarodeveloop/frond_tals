@@ -45,8 +45,7 @@ export class InteractionComponent implements OnInit,OnDestroy {
       }  
 
       if(res.type === "historial"){
-        console.log(res,'aquii')
-        this.historial = res.data
+        this.historial = res.data.mensj
       }
 
       if(res.type === "saludo"){
@@ -67,8 +66,6 @@ export class InteractionComponent implements OnInit,OnDestroy {
     })
 
     this.isvc.sendMsg({type:1, profile: this.session.profile, correo: this.session.correo, message: 'typeconnection'})
-    this.isvc.sendMsg({message: "historial"})
-
   }
 
   sendMessage(){

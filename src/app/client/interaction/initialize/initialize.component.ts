@@ -52,12 +52,11 @@ export class InitializeComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.appendVideo()
-    //this.init()
+    this.init()
 
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
     this.sendWsMsg(obj)
-    this.isvc.sendMsg({message: "historial"})
 
     this.isvc.messages.subscribe(res => {
 
@@ -70,7 +69,6 @@ export class InitializeComponent implements OnInit, OnDestroy {
       }
 
       if(res.type === "historial"){
-        console.log(res.data,'aqui historial')
         this.historial = res.data.mensj
       }
 
@@ -165,7 +163,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
                     alert(prediction.classIndex+1) */
 
-                    //self.start()
+                    self.start()
                   }
                 }
               }
