@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,OnChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import { AnimationsService } from '../../../service/animations.service'
 import { InteractionService } from '../../../service/interaction.service'
 import { ToastrService } from 'ngx-toastr';
+import { forkJoin } from 'rxjs'
 import { environment } from '../../../../environments/environment'
+
 
 declare var $ : any
 declare var knn_image_classifier : any
@@ -39,6 +41,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
   historial : any[] = []
   count_saliendo : number = 0;
   string_output  : string = ""
+  rate : boolean = false
 
   constructor(
     private asvc : AnimationsService, 
@@ -54,7 +57,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.appendVideo()
-    this.init()
+    //this.init()
 
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
@@ -119,6 +122,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
   send(){
     if(this.string_output.length > 0){
       this.sendWsMsg({ message: "clientEnterprise",  data: this.string_output})
+      this.stop()
     }else{
        this.toastr.error('Debe crear una oración mediante la cámara')
     }
@@ -129,9 +133,15 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
       var self = this
 
-      this.asvc.getImagesInteraction().subscribe( async (res) => {
+      const imagesInteraction = this.asvc.getImagesInteraction()
+      const validateRate      = this.isvc.rateGet()
+      forkJoin([
+        imagesInteraction,
+        validateRate
+      ]).subscribe( async res => {
 
-        this.registers = res
+        this.registers = res[0]
+        this.rate = res[1].rate
 
         if(this.registers.length > 0){  
 
@@ -187,12 +197,10 @@ export class InitializeComponent implements OnInit, OnDestroy {
               image.src = imageUrl
             })
           })
-          
-          //$('#result').text('Predicted to be class '+)
 
         }
-        
-      }, err => {
+
+      },err => {
         this.toastr.error(err.error.message,'Error!')
       })
   }
@@ -252,13 +260,11 @@ export class InitializeComponent implements OnInit, OnDestroy {
           const indexClass = res.classIndex
           this.classPredilect = indexClass
           
-          if(this.count === 40 && this.classPredilect === this.backup){
+          if(this.count === 15 && this.classPredilect === this.backup){
 
             this.string_output+= this.arreglo_elements[indexClass].texto
-
             this.count = 0
-            this.stop()
-          }else if(this.count === 40){
+          }else if(this.count === 15){
             this.count = 0
           }
           
@@ -277,6 +283,9 @@ export class InitializeComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.stop()
     this.sendWsMsg({message: "saliendo"})
+    if(!this.rate){
+      localStorage.setItem('rate',JSON.stringify({value: 1}))
+    }
   }
 
 }

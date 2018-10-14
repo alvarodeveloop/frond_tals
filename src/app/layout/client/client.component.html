@@ -6,7 +6,7 @@
     <div class="header clearfix">
       <div class="header-right">
         <div class="brand-logo">
-          <a href="index.php">
+          <a routerLink="/client">
             
             <!-- 
             <img src="../../../assets/images/logo.png" alt="" class="mobile-logo"> 
@@ -100,11 +100,42 @@
     <div class="main-container">
       <div class="pd-ltr-20 customscroll customscroll-10-p height-100-p xs-pd-20-10 background_admin">
         <router-outlet></router-outlet>
-        <div class="footer-wrap bg-white pd-20 mb-20 border-radius-5 box-shadow">
-          DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+        <div class="footer-wrap bg-white pd-20 mb-20 border-radius-5 box-shadow animated slideInUp">
+          Tals 2018 - 2019 Todos los Derechos Reservados <a href="https://veanx.cl" target="_blank">Desarrollado por Veanx.cl </a>
         </div>
       </div>
     </div>
+    <div id="modal_rate" class="modal fade" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="color: white; background-color: black;">
+                    <h4 class="modal-title" style="color: white;">En base a tú experiencia dale una valoración a nuestro producto para seguir mejorando</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="offset-sm-1 offset-md-1 col-md-2 col-sm-2">
+                      <span class="star_rate" (click)="sendRate(1)"><i class="fa fa-star-o" aria-hidden="true"></i></span><br>1 Estrella
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <span class="star_rate" (click)="sendRate(2)"><i class="fa fa-star-o" aria-hidden="true"></i></span><br>2 Estrellas
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <span class="star_rate" (click)="sendRate(3)"><i class="fa fa-star-o" aria-hidden="true"></i></span><br>3 Estrellas
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <span class="star_rate" (click)="sendRate(4)"><i class="fa fa-star-o" aria-hidden="true"></i></span><br>4 Estrellas
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                      <span class="star_rate" (click)="sendRate(5)"><i class="fa fa-star-o" aria-hidden="true"></i></span><br>5 Estrellas
+                    </div> 
+                  </div>
+                </div><!-- fin modal-body -->
+                <div class="modal-footer">
+                </div>
+            </div><!-- fin modal-content -->
+        </div><!-- fin modal-dialog -->
+    </div> <!-- fin modal -->
   </body>
 </html>
   

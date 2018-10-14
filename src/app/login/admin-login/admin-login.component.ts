@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginAdminService } from '../../service/login-admin.service'
 import { ToastrService } from 'ngx-toastr';
+import { InteractionService } from '../../service/interaction.service'
 import { Router } from '@angular/router'
+
+declare  var $ : any
 
 @Component({
   selector: 'app-admin-login',
@@ -19,7 +22,7 @@ export class AdminLoginComponent implements OnInit {
   stringRecovery: String = "Recuperar"
   submitted1: Boolean = false
 
-  constructor(private _fb: FormBuilder, private lasvc: LoginAdminService, private router: Router,private toastr: ToastrService) { }
+  constructor(private _fb: FormBuilder, private lasvc: LoginAdminService, private router: Router,private toastr: ToastrService,private isvc: InteractionService) { }
 
   ngOnInit() {
     var token = localStorage.getItem('token')
@@ -38,6 +41,23 @@ export class AdminLoginComponent implements OnInit {
 
     this.initForm()
     this.initFormRecovery()
+
+    if(localStorage.getItem('rate')){
+      $('#modal_rate').modal('show')
+    }
+
+  }
+
+  sendRate(val: number){
+    let obj = { rate : val }
+
+    this.isvc.sendRate(obj).subscribe(res => {
+      this.toastr.success('Gracias por ayudarnos a mejorar','Éxito!')
+      localStorage.removeItem('rate')
+      $('#modal_rate').modal('hide')
+    },err => {
+      this.toastr.error('Ha ocurrido un error','Error')
+    })
 
   }
 
@@ -75,6 +95,9 @@ export class AdminLoginComponent implements OnInit {
       
       localStorage.setItem('token',res.token)
       localStorage.setItem('session',JSON.stringify(res.user))
+      localStorage.setItem('recarga',JSON.stringify(res.user))
+      localStorage.removeItem('rate')
+
       if(res.user.profile == 2){
         if(!res.user.email_verify){
           this.toastr.warning('Debe validar su cuenta con el código enviado a su correo','Información!')

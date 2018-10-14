@@ -37,14 +37,14 @@
           <br>
           <form [formGroup]="formClient" action="" (ngSubmit)="onSubmit(formClient)">
             <div class="row form-group">
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Nombre Completo</label>
                 <input type="text" class="form-control" formControlName="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
                 <div *ngIf="f.nombre.errors" class="invalid-feedback">
                     <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Rut</label>
                 <input type="text" class="form-control" formControlName="rut" id="rut" [ngClass]="{ 'is-invalid': submitted && f.rut.errors }" (keyup)="onlyNubers($event)">
                 <div *ngIf="f.rut.errors" class="invalid-feedback">
@@ -53,14 +53,14 @@
               </div>
             </div>
             <div class="row form-group">
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Teléfono</label>
                 <input type="text" class="form-control" formControlName="telefono" id="telefono" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" (keyup)="onlyNubers($event)">
                 <div *ngIf="f.telefono.errors" class="invalid-feedback">
                     <div *ngIf="f.telefono.errors.required">El Teléfono es requerido</div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Correo</label>
                 <input type="email" class="form-control" formControlName="correo" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }">
                 <div *ngIf="f.correo.errors" class="invalid-feedback">
@@ -72,24 +72,24 @@
               </div>
             </div>
             <div class="row form-group">
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Dirección</label>
                 <textarea name="direccion" class="form-control" formControlName="direccion" id="direccion" cols="2" [ngClass]="{ 'is-invalid': submitted && f.direccion.errors }" style="height: 100px;"></textarea>
                 <div *ngIf="f.direccion.errors" class="invalid-feedback">
                     <div *ngIf="f.direccion.errors.required">La dirección es requerida</div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-6">
+              <div class="col-md-6 col-sm-12 col-12">
                 <label for="" class="form-control-label">Password</label>
                 <input type="password" class="form-control" id="password">
               </div>
             </div>
 
             <div class="row form-group">
-              <div class="col-md-4 col-sm-4 col-12 offset-md-2 offset-sm-2">
+              <div class="col-md-4 col-sm-12 col-12 offset-md-2">
                 <button class="btn btn-outline-success btn-block" [disabled]="submitted1">{{ stringBtn }}&nbsp;<i class="fa fa-send"></i></button>
               </div>
-              <div class="col-md-4 col-sm-4 col-12">
+              <div class="col-md-4 col-sm-12 col-12">
                 <a routerLink="/login"  class="btn btn-outline-primary btn-block">Cancelar&nbsp;<i class="fa fa-remove"></i></a>
               </div>
             </div>

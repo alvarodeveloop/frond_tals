@@ -92,7 +92,7 @@ export class FormComponent implements OnInit {
 
       this.psvc.update(formData,datos.id).subscribe(res => {
         this.toastr.success('Registro modificado','Éxito')
-        this.router.navigate(['/admin/publicity']);
+        this.router.navigate(['/enterprise/publicity']);
       }, err => {
         this.toastr.success(err.error.message,'Error!')
       })
@@ -110,7 +110,7 @@ export class FormComponent implements OnInit {
       
       this.psvc.stored(formData).subscribe(res => {
         this.toastr.success('Registro Agregado','Éxito')
-        this.router.navigate(['/admin/publicity']);
+        this.router.navigate(['/enterprise/publicity']);
       }, err => {
         this.toastr.success(err.error.message,'Error!')
       })

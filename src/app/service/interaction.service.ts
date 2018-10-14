@@ -38,11 +38,19 @@ export class InteractionService {
      this.messages.next(msg)
   }
 
+  sendRate(val: any){
+    return this.http.post(`${environment.url}rate`,val,this.httpOptions)
+  }
+
   getEnterprise(){
     return this.http.get<any>(`${environment.url}enterpriseSocket`,this.httpOptions)
   }
 
   getEnterpriseById(id:string){
     return this.http.get<any>(`${environment.url}enterpriseSocket/${id}`,this.httpOptions)
+  }
+
+  rateGet(){
+    return this.http.get<any>(`${environment.url}Rate`,this.httpOptions)
   }
 }

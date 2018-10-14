@@ -11,7 +11,15 @@ export class AdminComponent implements OnInit,AfterViewChecked {
   loading: Boolean = true
   userName: String = ''
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router) { 
+
+    window.onbeforeunload = () => {
+      if(localStorage.getItem('recarga')){
+        localStorage.removeItem('recarga')
+      }
+    }
+
+  }
 
   ngOnInit() {
     var session = JSON.parse(localStorage.getItem('session'))

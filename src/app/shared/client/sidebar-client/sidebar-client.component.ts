@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarClientComponent implements OnInit {
 
+  parrafo : boolean = localStorage.getItem('recarga') ? true : false
+
   constructor() { }
 
   ngOnInit() {

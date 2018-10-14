@@ -6,24 +6,22 @@
         
       </div>
       <div class="row no-gutters">
-        <div class="col-md-6 col-sm-6">
-          <button class="btn btn-primary btn-block" [disabled]="btn_disabled" (click)="start()">Empezar&nbsp;<i class="fa fa-play"></i></button>  
-        </div>
-        <div class="col-md-6 col-sm-6">
-          <button class="btn btn-info btn-block" [disabled]="btn_disabled1" (click)="stop()">Detener&nbsp;<i class="fa fa-stop"></i></button>  
-        </div>
-        <div class="col-md-6 col-sm-6">
-          <button type="button" class="btn btn-danger btn-block" (click)="erase_character()">Borrar&nbsp;<i class="fa fa-remove"></i></button>
-        </div>
-        <div class="col-md-6 col-sm-6">
-          <button type="button" class="btn btn-danger btn-block" (click)="clean_string()">Limpiar&nbsp;<i class="fa fa-trash"></i></button>
-        </div>
-        <div class="col-md-12 col-sm-12">
-          <button type="button" class="btn btn-success btn-block" (click)="send()">Enviar&nbsp;<i class="fa fa-send"></i></button>
+        <div class="col-md-12 col-sm-12 text-center">
+          <button class="btn btn-secondary btn-circle" [disabled]="btn_disabled" (click)="start()"><i class="fa fa-play"></i></button>  
+          <button class="btn btn-secondary btn-circle" [disabled]="btn_disabled1" (click)="stop()"><i class="fa fa-stop"></i></button>  
+          <button type="button" class="btn btn-danger btn-circle" (click)="erase_character()"><i class="fa fa-remove"></i></button>
+          <button type="button" class="btn btn-danger btn-circle" (click)="clean_string()"><i class="fa fa-trash"></i></button>
+          <button type="button" class="btn btn-success btn-circle" (click)="send()"><i class="fa fa-send"></i></button>
         </div>
       </div>
       <div class="clearfix"></div>
-      <div class="col-md-12 col-sm-12" *ngIf="string_output.lenght > 0">Texto a Enviar: {{ string_output.lenght }}</div>
+      <br/>
+      <div class="col-md-12 col-sm-12">Texto a Enviar: {{ string_output }}</div>
+      <div class="clearfix"></div>
+      <br>
+      <div class="col-md-12 col-sm-12">
+        <button type="button" data-toggle="modal" data-target="#modal_cuenta" class="btn btn-primary btn-block">Instrucciones</button>
+      </div>
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="row no-gutters">
@@ -35,8 +33,6 @@
           <h4 class="text-center">Historial de Mensajes</h4>
           <div class="text-center div_chat">
             <div [ngClass]="item.tipo == 1 ? 'alert alert-info sordo' : 'alert alert-danger empresa'" *ngFor="let item of historial; let index = index">
-              {{ item.tipo == 1 ? 'Usted:' : 'Empresa:'}}
-              <br/>
               {{ item.mensaje }}
             </div>
           </div>
@@ -45,3 +41,40 @@
     </div>
   </div>
 </div>
+<div id="modal_cuenta" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header login-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-sm-12">
+                  <ul class="list-group">
+                      <li class="list-group-flush">
+                        <button class="btn btn-secondary btn-circle"><i class="fa fa-play"></i></button>&nbsp;&nbsp;Empezar uso de la Cámara
+                      </li>
+                      <li class="list-group-flush">
+                        <button class="btn btn-secondary btn-circle"><i class="fa fa-stop"></i></button>&nbsp;&nbsp;Parar uso de la Cámara
+                      </li>
+                      <li class="list-group-flush">
+                        <button class="btn btn-danger btn-circle"><i class="fa fa-remove"></i></button>&nbsp;&nbsp;Remover 1 Caracter del texto
+                      </li>
+                      <li class="list-group-flush">
+                        <button class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></button>&nbsp;&nbsp;Limpiar la cadena de texto
+                      </li>
+                      <li class="list-group-flush">
+                        <button class="btn btn-success btn-circle"><i class="fa fa-send"></i></button>&nbsp;&nbsp;Mandar mensaje a la empresa
+                      </li>
+                    </ul>
+                </div>
+              </div>
+            </div><!-- fin modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- fin modal-content -->
+    </div><!-- fin modal-dialog -->
+</div> <!-- fin modal -->
