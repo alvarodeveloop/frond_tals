@@ -16,6 +16,8 @@ export class ClientComponent implements OnInit,AfterViewChecked,OnDestroy {
   userName: String = ''
   client_particular: Boolean = true
   interval : any
+  token : any = localStorage.getItem('token')
+
   constructor(private _router: Router, private isvc: InteractionService, private toastr: ToastrService) { 
 
     window.onbeforeunload = () => {
@@ -40,7 +42,7 @@ export class ClientComponent implements OnInit,AfterViewChecked,OnDestroy {
   sendRate(val: number){
     let obj = { rate : val }
 
-    this.isvc.sendRate(obj).subscribe(res => {
+    this.isvc.sendRate(obj,this.token).subscribe(res => {
       this.toastr.success('Gracias por ayudarnos a mejorar','Éxito!')
       localStorage.removeItem('rate')
       clearInterval(this.interval)
@@ -60,6 +62,7 @@ export class ClientComponent implements OnInit,AfterViewChecked,OnDestroy {
   logout(){
      localStorage.removeItem('token')
      localStorage.removeItem('session')
+     localStorage.removeItem('rate')
      this._router.navigate(['/login'])
   }
 

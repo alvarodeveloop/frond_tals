@@ -18,6 +18,7 @@ export class InteractionComponent implements OnInit, OnDestroy {
 
   EnterpriseOnline : any[]
   intervalVarible  : any
+  token : any = localStorage.getItem('token')
 
   constructor(private isvc: InteractionService, private tostr: ToastrService, private router: Router){
 
@@ -30,7 +31,7 @@ export class InteractionComponent implements OnInit, OnDestroy {
 
   init(){
     
-    this.isvc.getEnterprise().subscribe(res => {
+    this.isvc.getEnterprise(this.token).subscribe(res => {
       this.EnterpriseOnline = res
       this.renderTableEnterprise()
     }, err => {

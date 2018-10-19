@@ -15,6 +15,7 @@ export class EnterpriseComponent implements OnInit,AfterViewChecked,OnDestroy {
   loading: Boolean = true
   userName: String = ''
   interval : any
+  token : any = localStorage.getItem('token')
 
   constructor(private _router: Router, private isvc: InteractionService, private toastr: ToastrService) { 
 
@@ -29,7 +30,7 @@ export class EnterpriseComponent implements OnInit,AfterViewChecked,OnDestroy {
   sendRate(val: number){
     let obj = { rate : val }
 
-    this.isvc.sendRate(obj).subscribe(res => {
+    this.isvc.sendRate(obj,this.token).subscribe(res => {
       this.toastr.success('Gracias por ayudarnos a mejorar','Éxito!')
       localStorage.removeItem('rate')
       $('#modal_rate').modal('hide')
@@ -66,6 +67,7 @@ export class EnterpriseComponent implements OnInit,AfterViewChecked,OnDestroy {
   logout(){
      localStorage.removeItem('token')
      localStorage.removeItem('session')
+     localStorage.removeItem('rate')
      this._router.navigate(['/login'])
   }
 

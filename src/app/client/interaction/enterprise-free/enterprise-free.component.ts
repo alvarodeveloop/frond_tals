@@ -21,6 +21,8 @@ export class EnterpriseFreeComponent implements OnInit {
   btn_disabled : boolean = false
   route_btn    : string  = "../../../../../assets/images/conecctionbtn.png"
   publicity    : any
+  token : any = localStorage.getItem('token')
+
   constructor(
     private router: Router, 
     private _router: ActivatedRoute,
@@ -39,7 +41,7 @@ export class EnterpriseFreeComponent implements OnInit {
   init(){
     if(this.enterpriseId){
 
-      const enterpriseObservable = this.isvc.getEnterpriseById(this.enterpriseId)
+      const enterpriseObservable = this.isvc.getEnterpriseById(this.enterpriseId,this.token)
       const publicity            = this.psvc.getEnterprisePublicityActive(this.enterpriseId)
       //const publicityObservable  = this.psvc.getEnterprisePublicity(this.enterpriseId)
       forkJoin([

@@ -19,8 +19,9 @@ import { AdminComponent } from './layout/admin/admin.component';
 import { ClientComponent } from './layout/client/client.component'
 import { EnterpriseComponent } from './layout/enterprise/enterprise.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component'
-import { VerifyAccountComponent } from './login/verify-account/verify-account/verify-account.component'
-import { VerifyTokenComponent } from './login/verify-token/verify-token.component'
+import { VerifyAccountComponent } from './login/verify-account/verify-account/verify-account.component';
+import { VerifyTokenComponent } from './login/verify-token/verify-token.component';
+
 
 //servicios
 import { AdminEnterpriseService } from './service/admin-enterprise.service';
@@ -46,12 +47,12 @@ import { InitializeComponent } from './client/interacion/initialize/initialize.c
     AppComponent,
     AdminComponent,
     EnterpriseComponent,
-    AdminLoginComponent,
-    VerifyAccountComponent,
-    VerifyTokenComponent,
     UserRegisterComponent,
     ClientComponent,
-    InitializeComponent
+    InitializeComponent,
+    AdminLoginComponent,
+    VerifyAccountComponent,
+    VerifyTokenComponent
   ],
   imports: [
     CommonModule,

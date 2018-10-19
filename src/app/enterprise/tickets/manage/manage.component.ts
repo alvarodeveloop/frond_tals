@@ -28,7 +28,7 @@ export class ManageComponent implements OnInit {
   submitted: boolean = false
   idTicket : string
   arrayStatus: any
-  statusTicket : string
+  statusTicket : number
 
   constructor(private tsvc: TicketsAdminService, 
               private toastr: ToastrService, 
@@ -63,7 +63,7 @@ export class ManageComponent implements OnInit {
         
         this.ticketManage = res[0][0]
         
-        this.statusTicket = this.ticketManage.statu_id
+        this.statusTicket = parseInt(this.ticketManage.statu_id)
         console.log(this.ticketManage,'aquiii')
         if(this.ticketManage){
           this.validate = true

@@ -42,6 +42,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
   count_saliendo : number = 0;
   string_output  : string = ""
   rate : boolean = false
+  token : any = localStorage.getItem('token')
 
   constructor(
     private asvc : AnimationsService, 
@@ -57,7 +58,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.appendVideo()
-    //this.init()
+    this.init()
 
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
@@ -122,6 +123,9 @@ export class InitializeComponent implements OnInit, OnDestroy {
   send(){
     if(this.string_output.length > 0){
       this.sendWsMsg({ message: "clientEnterprise",  data: this.string_output})
+      setTimeout(() => {
+        this.sendWsMsg({'message': "historial"})
+      },500)
       this.stop()
     }else{
        this.toastr.error('Debe crear una oración mediante la cámara')
@@ -134,7 +138,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
       var self = this
 
       const imagesInteraction = this.asvc.getImagesInteraction()
-      const validateRate      = this.isvc.rateGet()
+      const validateRate      = this.isvc.rateGet(this.token)
       forkJoin([
         imagesInteraction,
         validateRate
@@ -149,7 +153,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
             await new Promise(resolve => setTimeout(resolve, 1000));
           }
 
-          this.knn = new knn_image_classifier.KNNImageClassifier(self.registers.length, 3);
+          this.knn = new knn_image_classifier.KNNImageClassifier(self.registers.length, 30);
           await this.knn.load();
 
           var con = 0;
@@ -261,8 +265,22 @@ export class InitializeComponent implements OnInit, OnDestroy {
           this.classPredilect = indexClass
           
           if(this.count === 15 && this.classPredilect === this.backup){
+            if(this.arreglo_elements[indexClass].texto === "_vacio"){
+              if(this.string_output !== ""){
+                this.string_output+= " "
+              }
+            }else if(this.arreglo_elements[indexClass].texto === "_nada"){
+              
+            }else{
+              let last_letter = this.string_output.substring(parseInt(this.string_output) -1);
+              let penultim_letter = this.string_output.substring(parseInt(this.string_output) -2, parseInt(this.string_output) -1);
+              
+              if(last_letter === penultim_letter && last_letter === this.arreglo_elements[indexClass].texto){
 
-            this.string_output+= this.arreglo_elements[indexClass].texto
+              }else{
+                this.string_output+= this.arreglo_elements[indexClass].texto
+              }
+            }
             this.count = 0
           }else if(this.count === 15){
             this.count = 0

@@ -42,23 +42,6 @@ export class AdminLoginComponent implements OnInit {
     this.initForm()
     this.initFormRecovery()
 
-    if(localStorage.getItem('rate')){
-      $('#modal_rate').modal('show')
-    }
-
-  }
-
-  sendRate(val: number){
-    let obj = { rate : val }
-
-    this.isvc.sendRate(obj).subscribe(res => {
-      this.toastr.success('Gracias por ayudarnos a mejorar','Éxito!')
-      localStorage.removeItem('rate')
-      $('#modal_rate').modal('hide')
-    },err => {
-      this.toastr.error('Ha ocurrido un error','Error')
-    })
-
   }
 
   initForm(){

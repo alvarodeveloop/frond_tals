@@ -26,7 +26,7 @@ export class InteractionComponent implements OnInit,OnDestroy {
   count_saludo   : number = 0;
   rate : boolean = false
   h: any 
-
+  token : any = localStorage.getItem('token')
 
   constructor(private asvc : AnimationsService, private toastr: ToastrService, private _ele: ElementRef, private isvc: InteractionService) { 
     this.session = JSON.parse(localStorage.getItem('session'))
@@ -79,7 +79,7 @@ export class InteractionComponent implements OnInit,OnDestroy {
 
     this.isvc.sendMsg({type:1, profile: this.session.profile, correo: this.session.correo, message: 'typeconnection'})
 
-    this.isvc.rateGet().subscribe(res => {
+    this.isvc.rateGet(this.token).subscribe(res => {
       this.rate = res.rate
     },err => {
       this.toastr.error('Ha ocurrido un error','Error1')
@@ -91,6 +91,9 @@ export class InteractionComponent implements OnInit,OnDestroy {
     let message1 = this._ele.nativeElement.querySelector('#entradaTexto').value
     console.log('entro para enviar el mesaje')
     this.isvc.sendMsg({message: "enterpriseClient",msg: message1})
+    setTimeout(() => {
+        this.isvc.sendMsg({message: "historial"})
+    },500)
   }
 
   renderResponseClient(data){
