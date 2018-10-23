@@ -29,8 +29,7 @@
               "src/assets/plugins/datatables/media/css/dataTables.bootstrap4.css",
               "src/assets/plugins/datatables/media/css/responsive.dataTables.css",
               "node_modules/ngx-toastr/toastr.css",
-              "src/assets/css/animated.css"
-
+              "src/assets/css/jsfeat.css"
             ],
             "scripts": [
               "src/assets/js/script.min.js",
@@ -40,7 +39,11 @@
               "src/assets/plugins/datatables/media/js/responsive.bootstrap4.js",
               "src/assets/js/main.js",
               "src/assets/js/deeplearn.js",
-              "src/assets/js/build.js"
+              "src/assets/js/build.js",
+              "src/assets/js/jsfeat-min.js",
+              "src/assets/js/compatibility.js",
+              "src/assets/js/profiler.js",
+              "src/assets/js/dat.gui.min.js"
             ]
           },
           "configurations": {

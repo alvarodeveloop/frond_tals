@@ -21,6 +21,8 @@ import { EnterpriseComponent } from './layout/enterprise/enterprise.component';
 import { AdminLoginComponent } from './login/admin-login/admin-login.component'
 import { VerifyAccountComponent } from './login/verify-account/verify-account/verify-account.component';
 import { VerifyTokenComponent } from './login/verify-token/verify-token.component';
+import { UserRegisterComponent } from './login/user-register/user-register.component';
+import { InitializeComponent } from './client/interacion/initialize/initialize.component';
 
 
 //servicios
@@ -38,8 +40,7 @@ import { WebsocketService } from './service/websocket.service';
 
 //rutas
 import { AppRoutes } from './app.routes';
-import { UserRegisterComponent } from './login/user-register/user-register.component';
-import { InitializeComponent } from './client/interacion/initialize/initialize.component';
+
 
 
 @NgModule({
