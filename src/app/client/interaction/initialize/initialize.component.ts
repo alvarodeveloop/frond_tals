@@ -215,11 +215,15 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
         this.ctx.putImageData(imageData, 0, 0);
 
-        var image = new Image()
-        image.src = this.ctx.canvas.toDataURL("image/png");
-        image.crossOrigin = "Anonymous"
-        image.width = 227
-        image.height = 227
+        var image = document.createElement('img')
+            image.crossOrigin = "Anonymous"
+            image.width = 227
+            image.height = 227
+            image.src = this.ctx.canvas.toDataURL("image/png");
+
+            image.onload = async () => {
+              this.animate(image)
+            }
     }
   }
 
