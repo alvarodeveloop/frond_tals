@@ -70,9 +70,8 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    //this.appendVideo()
-    //this.init()
-    this.initFrame()
+    this.init()
+    //this.initFrame()
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
     this.sendWsMsg(obj)
