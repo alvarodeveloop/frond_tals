@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy,OnChanges, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
-import { AnimationsService } from '../../../service/animations.service'
-import { InteractionService } from '../../../service/interaction.service'
+import { AnimationsService } from '../../service/animations.service'
+import { InteractionService } from '../../service/interaction.service'
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin } from 'rxjs'
-import { environment } from '../../../../environments/environment'
+import { environment } from '../../../environments/environment'
 
 
 declare var $ : any
@@ -17,17 +17,11 @@ declare var jsfeat : any
 declare var profiler : any
 
 @Component({
-  selector: 'app-initialize',
-  templateUrl: './initialize.component.html',
-  styleUrls: ['./initialize.component.css']
+  selector: 'app-demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.css']
 })
-export class InitializeComponent implements OnInit, OnDestroy {
-
-  /*route1 : string = "../../../../assets/images/cat.jpg"
-  route2 : string = "../../../../assets/images/dog1.jpg"
-  route3 : string = "../../../../assets/images/dog2.jpg"
-  route4 : string = "../../../../assets/images/ejemplo1.jpg"
-  route5 : string = "../../../../assets/images/ejemplo2.jpg"*/
+export class DemoComponent implements OnInit, OnDestroy {
 
   videoPlaying : boolean = false
   video : any
@@ -62,7 +56,8 @@ export class InitializeComponent implements OnInit, OnDestroy {
     private isvc: InteractionService,
     private router: Router,
     private _router: ActivatedRoute,
-    private _eleRef : ElementRef) { 
+    private _eleRef : ElementRef
+    ) { 
     this.session = JSON.parse(localStorage.getItem('session'))
     this.idEnterprise = this._router.snapshot.paramMap.get('id')
     this.count_saliendo = 0;
@@ -72,6 +67,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
     this.appendVideo()
     this.init()
+
     //this.initFrame()
     // socket 
     var obj = {type:2, profile: this.session.profile, correo: this.session.correo, enterprise_id: this.idEnterprise, message: 'typeconnection'}
@@ -88,12 +84,6 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
       if(res.type === "historial"){
         this.historial = res.data.mensj
-
-        setTimeout(() => {
-          var objDiv = this._eleRef.nativeElement.querySelector(".div_chat");
-          objDiv.scrollTop = objDiv.scrollHeight;
-        },500)
-
       }
 
       if(res.type === "exit"){
@@ -105,7 +95,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
       }
     })
 
-  }  
+  }
 
   initFrame(){
     this.canvas = this._eleRef.nativeElement.querySelector('#canvas')
@@ -228,10 +218,30 @@ export class InitializeComponent implements OnInit, OnDestroy {
             image.src = this.ctx.canvas.toDataURL("image/png");
 
             image.onload = async () => {
-              this.animate(image)
+              this.animate()
             }
     }
   }
+
+  appendVideo(){
+    this.video = document.createElement('video');
+    this.video.setAttribute('autoplay', '');
+    this.video.setAttribute('playsinline', '');    
+
+    $('#div_camera').append(this.video)
+    //document.body.appendChild(this.video);
+
+    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    .then((stream) => {
+      this.video.srcObject = stream;
+      this.video.width = 227;
+      this.video.height = 227;
+
+      this.video.addEventListener('playing', ()=> this.videoPlaying = true);
+      this.video.addEventListener('paused', ()=> this.videoPlaying = false);
+    })
+  }
+
 
 
   sendWsMsg(data){
@@ -341,8 +351,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
 
                     alert(prediction.classIndex+1) */
 
-                    //self.initFrame()
-                    self.start()
+                     self.start()
                   }
                 }
               }
@@ -354,25 +363,6 @@ export class InitializeComponent implements OnInit, OnDestroy {
       },err => {
         this.toastr.error(err.error.message,'Error!')
       })
-  }
-
-  appendVideo(){
-    this.video = document.createElement('video');
-    this.video.setAttribute('autoplay', '');
-    this.video.setAttribute('playsinline', '');    
-
-    $('#div_camera').append(this.video)
-    //document.body.appendChild(this.video);
-
-    navigator.mediaDevices.getUserMedia({video: true, audio: false})
-    .then((stream) => {
-      this.video.srcObject = stream;
-      this.video.width = 227;
-      this.video.height = 227;
-
-      this.video.addEventListener('playing', ()=> this.videoPlaying = true);
-      this.video.addEventListener('paused', ()=> this.videoPlaying = false);
-    })
   }
 
   start(){
@@ -390,15 +380,15 @@ export class InitializeComponent implements OnInit, OnDestroy {
     this.videoPlaying = false
     this.btn_disabled1 = true;
     this.btn_disabled = false;
-    cancelAnimationFrame(this.timer);
     //compatibility.cancelAnimationFrame(this.tick)
+    cancelAnimationFrame(this.timer);
   }
 
-  animate(image1){
+  animate(){
 
     if(this.videoPlaying){
       // Get image data from video element
-      const image = dl.fromPixels(image1);
+      const image = dl.fromPixels(this.video);
 
       // If any examples have been added, run predict
       const exampleCount = this.knn.getClassExampleCount();
@@ -422,8 +412,9 @@ export class InitializeComponent implements OnInit, OnDestroy {
                 this.string_output+= this.arreglo_elements[indexClass].texto
               }
             }
+
             this.count = 0
-          }else if(this.count === 2){
+          }else if(this.count === 1){
             this.count = 0
           }
           

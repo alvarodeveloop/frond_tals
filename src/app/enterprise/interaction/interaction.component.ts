@@ -27,12 +27,25 @@ export class InteractionComponent implements OnInit,OnDestroy {
   rate : boolean = false
   h: any 
   token : any = localStorage.getItem('token')
+  escuchandoMicrofono: boolean = false
+  recognoze : any
+  escuchando : boolean = false
+  
 
   constructor(private asvc : AnimationsService, private toastr: ToastrService, private _ele: ElementRef, private isvc: InteractionService) { 
-    this.session = JSON.parse(localStorage.getItem('session'))
+
+    (<any>window).SpeechRecognition = (<any>window).webkitSpeechRecognition || (<any>window).SpeechRecognition;
+
+    this.recognoze = new (<any>window).SpeechRecognition();
+
+    this.recognoze.continuous = true; 
+    this.recognoze.lang = 'es-ES'; // idioma
+    this.recognoze.interimResults = true; // nos da resultados aunque no sean finales
   }
 
   ngOnInit() {
+
+    this.session = JSON.parse(localStorage.getItem('session'))
     this.init()
 
     window.speechSynthesis.onvoiceschanged = () => {
@@ -58,6 +71,10 @@ export class InteractionComponent implements OnInit,OnDestroy {
 
       if(res.type === "historial"){
         this.historial = res.data.data
+        setTimeout(() => {
+          var objDiv = this._ele.nativeElement.querySelector(".div_chat");
+          objDiv.scrollTop = objDiv.scrollHeight;
+        },500)
       }
 
       if(res.type === "saludo"){
@@ -84,6 +101,39 @@ export class InteractionComponent implements OnInit,OnDestroy {
     },err => {
       this.toastr.error('Ha ocurrido un error','Error1')
     })
+  }
+
+  initSpeakers(){ 
+
+    var btn = this._ele.nativeElement.querySelector('button.recog')
+
+    // Funcion empezar / parar
+    if( this.escuchando == false ){
+        this.recognoze.start();
+        this.escuchando = true;
+        btn.innerHTML = 'Parar la escucha';
+        this.escuchandoMicrofono = true
+    }else{
+        this.escuchandoMicrofono = false
+        this.recognoze.stop()
+        this.escuchando = false;
+        btn.innerHTML = 'Reconocer Voz&nbsp;<i class="fa fa-comment"></i>';
+    }
+    // Eventos del Recognizer
+    this.recognoze.onresult = (event) => {
+      console.log(event,'aqui el evento que frao')
+      for( var i=event.resultIndex; i < event.results.length; i++ ){
+          if( event.results[i].isFinal ){
+              // Si considera que el usuario ya no va a hablar mas
+              // o que la frase ha terminado
+              $('#entradaTexto').text(event.results[i][0].transcript)
+              this.initSpeakers.bind(this);
+          }else{
+              // Si considera que el usuario va a seguir hablando
+              $('#entradaTexto').text(event.results[i][0].transcript)
+          }
+      }
+    }
   }
 
   sendMessage(){
@@ -146,6 +196,8 @@ export class InteractionComponent implements OnInit,OnDestroy {
     this.rec.stop();
 
   }
+
+
   
   ngOnDestroy(){
     this.isvc.sendMsg({message: "saliendo"})

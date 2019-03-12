@@ -34,6 +34,10 @@ export const AppRoutes: Routes = [
     {
       path: 'interaction',
       loadChildren: './client/interaction/interaction.module#InteractionModule'
+    },
+    {
+      path: 'demo',
+      loadChildren: './client/demo/demo.module#DemoModule'
     }
   ]
 },

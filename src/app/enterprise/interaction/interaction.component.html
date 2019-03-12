@@ -6,10 +6,19 @@
       <p class="text-center">{{ estadoConexionCliente }}</p>
       <div class="row">
         <div class="col-md-6 col-sm-6">
-          <div class="col-md-10 col-sm-10 offset-sm-1 offset-md-1">
-            <textarea name="entradaTexto" id="entradaTexto" rows="4" class="form-control"></textarea>
-            <br/>
-            <button class="btn btn-primary btn-block" (click)="sendMessage()">Enviar&nbsp;<i class="fa fa-send"></i></button>
+          <div class="row no-gutters">
+            <div class="col-md-11 col-sm-11 offset-sm-1 offset-md-1">
+              <textarea name="entradaTexto" id="entradaTexto" rows="4" class="form-control"></textarea>
+              <br/>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="col-md-5 col-sm-5 offset-md-1 offset-sm-1">
+              <button class="btn btn-danger btn-block recog" (click)="initSpeakers()">Reconocer Voz&nbsp;<i class="fa fa-comment"></i></button>
+            </div>
+            <div class="col-md-5 col-sm-5 offset-md-1 offset-sm-1">
+              <button class="btn btn-primary btn-block" (click)="sendMessage()">Enviar&nbsp;<i class="fa fa-send"></i></button>
+            </div>
           </div>
         </div>
         <div class="col-md-6 col-sm-6">
