@@ -228,7 +228,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
             image.src = this.ctx.canvas.toDataURL("image/png");
 
             image.onload = async () => {
-              this.animate(image)
+              //this.animate(image)
             }
     }
   }
@@ -299,7 +299,7 @@ export class InitializeComponent implements OnInit, OnDestroy {
             await new Promise(resolve => setTimeout(resolve, 1000));
           }
 
-          this.knn = new knn_image_classifier.KNNImageClassifier(self.registers.length, 30);
+          this.knn = new knn_image_classifier.KNNImageClassifier(self.registers.length, 10);
           await this.knn.load();
 
           var con = 0;
@@ -394,11 +394,11 @@ export class InitializeComponent implements OnInit, OnDestroy {
     //compatibility.cancelAnimationFrame(this.tick)
   }
 
-  animate(image1){
+  animate(){
 
     if(this.videoPlaying){
       // Get image data from video element
-      const image = dl.fromPixels(image1);
+      const image = dl.fromPixels(this.video);
 
       // If any examples have been added, run predict
       const exampleCount = this.knn.getClassExampleCount();

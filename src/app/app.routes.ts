@@ -24,7 +24,7 @@ export const AppRoutes: Routes = [
   canActivate: [ClientSessionService],
   children: [
     {
-      path: 'tickets',
+      path: 'ticketsClient',
       loadChildren: './client/ticket/ticket.module#TicketModule'
     },
     {
@@ -94,7 +94,7 @@ export const AppRoutes: Routes = [
       loadChildren: './enterprise/subscription/subscription.module#SubscriptionModule'
     },
     {
-      path: 'tickets',
+      path: 'ticketsEnterprise',
       loadChildren: './enterprise/tickets/tickets.module#TicketsModule'
     },
     {

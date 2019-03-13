@@ -31,7 +31,7 @@ export class FormComponent implements OnInit {
       this.motivos = res
     },err => {  
       this.toastr.error(err.error.message,'Error!')
-      this.router.navigate(['/client/tickets'])
+      this.router.navigate(['/client/ticketsClient'])
     })
   }
 
@@ -54,7 +54,7 @@ export class FormComponent implements OnInit {
 
    this.tsvc.storedTicketsClient(datos).subscribe(res => {
      this.toastr.success('Proceso Completado', 'Éxito!')
-     this.router.navigate(['/client/tickets'])
+     this.router.navigate(['/client/ticketsClient'])
    },err => {
      this.toastr.error(err.error.message,'Error!')
    })

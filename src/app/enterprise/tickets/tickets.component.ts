@@ -70,7 +70,7 @@ export class TicketsComponent implements OnInit {
   }
 
   editRegister(data){
-    this.router.navigate(['/enterprise/tickets/manage/',data.id])
+    this.router.navigate(['/enterprise/ticketsEnterprise/manage/',data.id])
   }
 
 }

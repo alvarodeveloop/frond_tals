@@ -47,7 +47,7 @@ export class ManageComponent implements OnInit {
       this.init(id)
     }else{
       this.toastr.error('Petición incorrecta','Error!')
-      this.router.navigate(['/admin/tickets'])
+      this.router.navigate(['/client/ticketsClient'])
     }
   }
 
