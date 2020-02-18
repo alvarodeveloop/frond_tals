@@ -3,16 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  url: 'http://127.0.0.1:3789/',
-  ws_url: "http://127.0.0.1:3789/"
-  //ws_url: "https://tals2018.herokuapp.com/",
-  //url: 'https://tals2018.herokuapp.com/' //producción heroku
-  //ws_url: "https://app.tals.cl:3000/",
-  //url: 'https://app.tals.cl:3000/' //producción tals
-  
-
-  
+  production: true,
+  url: 'https://app.tals.cl:6000/',
+  ws_url: "https://app.tals.cl:6000/"
 };
   // clave juapo 6599319
 
