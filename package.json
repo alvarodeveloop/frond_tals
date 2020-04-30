@@ -24,7 +24,7 @@
     "core-js": "^2.5.4",
     "deeplearn": "^0.5.1",
     "deeplearn-knn-image-classifier": "^0.4.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "moment": "^2.22.2",
     "ngx-toastr": "^9.0.2",
     "pre-commit": "^1.2.2",
